@@ -126,6 +126,7 @@ public class Doctor extends Person{
 
     // To String method
 
+    @Override
     public String toString() {
         return "Doctor [Full Name: " + firstName + " " + lastName + 
            ", Age: " + age + 
