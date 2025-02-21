@@ -45,4 +45,13 @@ public class Patient extends Person {
         this.nextOfKin = nextOfKin;
         this.lastPresDate = lastPresDate;
     }
+
+    // Getter methods
+
+    // Setter methods
+
+    // Validation methods 
+
+    // To String method
+
 }
