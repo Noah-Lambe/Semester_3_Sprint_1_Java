@@ -5,6 +5,7 @@ this doesnt have all requirements in it please refer to the sprint doc to view a
  */
 
 package medicationtracking;
+
 import java.util.Scanner;
 
 public class EmptyMenu {
@@ -12,7 +13,7 @@ public class EmptyMenu {
         MedicationTracking medicationTracking = new MedicationTracking();
         boolean exit = false;
 
-        while (!exit){
+        while (!exit) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("=====Welcome To The Pharmacy Med Tracking System=====");
             System.out.println("What would you like to do? ");
@@ -29,7 +30,7 @@ public class EmptyMenu {
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
-                    addANewPatient(scanner,system);
+                    addANewPatient(scanner, system);
                     break;
                 case 2:
                     addANewDoctor(scanner);
@@ -44,16 +45,16 @@ public class EmptyMenu {
                     checkExpiredMeds(system);
                     break;
                 case 6:
-                    processANewScript(scanner,system);
+                    processANewScript(scanner, system);
                     break;
                 case 7:
-                    printScriptsForSpecificDoctor(scanner,system);
+                    printScriptsForSpecificDoctor(scanner, system);
                     break;
                 case 8:
-                    restockPharmacyDrugs(scanner,system);
+                    restockPharmacyDrugs(scanner, system);
                     break;
                 case 9:
-                    printAllScriptsForPatientByName(scanner,system);
+                    printAllScriptsForPatientByName(scanner, system);
                     break;
                 case 10:
                     exit = true;
@@ -99,8 +100,6 @@ public class EmptyMenu {
 
     private static void addANewPatient(Scanner scanner, MedicationTracking system) {
 
-
     }
 
-}
 }
