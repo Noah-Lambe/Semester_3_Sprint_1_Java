@@ -1,5 +1,6 @@
+package main;
+
 import java.time.LocalDate;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Prescription {
     private static int counter = 1;
