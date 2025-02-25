@@ -186,6 +186,7 @@ public class EmptyMenu {
 
     // Add, Remove, Edit and Search Medication
     private static void addNewMedicationToPharmacy(Scanner scanner, MedicationTracking medicationTracking) {
+        scanner.nextLine();
         System.out.print("Enter Medication Name: ");
         String name = scanner.nextLine();
 
@@ -203,21 +204,109 @@ public class EmptyMenu {
         medicationTracking.addMedication(newMedication);
 
         System.out.println("\nMedication added successfully!");
-        newMedication.displayMedicationInfo(); // Display the medication details
+        newMedication.toString();
     }
 
     private static void removeMedicationToPharmacy(Scanner scanner, MedicationTracking medicationTracking) {
-
+        if (medicationTracking.getMedications().isEmpty()) {
+            System.out.println("No medications available to remove.");
+            return;
+        }
+    
+        System.out.println("\n===== Medication List =====");
+        for (Medication medication : medicationTracking.getMedications()) {
+            System.out.println("ID: " + medication.getId() + " | Name: " + medication.getName());
+        }
+    
+        System.out.print("\nEnter the ID of the medication to remove: ");
+        int medId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Medication medToRemove = null;
+        for (Medication medication : medicationTracking.getMedications()) {
+            if (medication.getId() == medId) {
+                medToRemove = medication;
+                break;
+            }
+        }
+    
+        if (medToRemove != null) {
+            medicationTracking.deleteMedication(medToRemove);
+            System.out.println("Medication " + medToRemove.getName() + " has been removed successfully.");
+        } else {
+            System.out.println("No medication found.");
+        }
     }
-
+    
     private static void editMedicationToPharmacy(Scanner scanner, MedicationTracking medicationTracking) {
-
+        if (medicationTracking.getMedications().isEmpty()) {
+            System.out.println("No medications available to edit.");
+            return;
+        }
+    
+        System.out.println("\n===== Medication List =====");
+        for (Medication medication : medicationTracking.getMedications()) {
+            System.out.println("ID: " + medication.getId() + " | Name: " + medication.getName());
+        }
+    
+        System.out.print("\nEnter the ID of the medication to edit: ");
+        int medId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Medication medToEdit = null;
+        for (Medication medication : medicationTracking.getMedications()) {
+            if (medication.getId() == medId) {
+                medToEdit = medication;
+                break;
+            }
+        }
+    
+        if (medToEdit == null) {
+            System.out.println("No medication found.");
+            return;
+        }
+    
+        System.out.println("Editing medication: " + medToEdit.getName());
+    
+        System.out.print("Enter new Name (leave blank to keep [" + medToEdit.getName() + "]): ");
+        String name = scanner.nextLine();
+        if (!name.isEmpty()) medToEdit.setName(name);
+    
+        System.out.print("Enter new Dosage (leave blank to keep [" + medToEdit.getDose() + "]): ");
+        String dose = scanner.nextLine();
+        if (!dose.isEmpty()) medToEdit.setDose(dose);
+    
+        System.out.print("Enter new Quantity (leave blank to keep [" + medToEdit.getQuantityInStock() + "]): ");
+        String quantityInput = scanner.nextLine();
+        if (!quantityInput.isEmpty()) medToEdit.setQuantityInStock(Integer.parseInt(quantityInput));
+    
+        System.out.println("Medication details updated successfully!");
     }
-
+    
     private static void searchNewMedicationToPharmacy(Scanner scanner, MedicationTracking medicationTracking) {
-
+        if (medicationTracking.getMedications().isEmpty()) {
+            System.out.println("No medications available to search.");
+            return;
+        }
+    
+        System.out.println("\n===== Medication List =====");
+        for (Medication medication : medicationTracking.getMedications()) {
+            System.out.println("ID: " + medication.getId() + " | Name: " + medication.getName());
+        }
+    
+        System.out.print("\nEnter the ID of the medication to view details: ");
+        int medId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Medication foundMedication = medicationTracking.findMedicationById(medId);
+        if (foundMedication != null) {
+            System.out.println("\n===== Medication Details =====");
+            System.out.println(foundMedication.toString());
+        } else {
+            System.out.println("No medication found.");
+        }
     }
-
+    
     // Add, Remove, Edit and Search Doctor
     private static void addANewDoctor(Scanner scanner, MedicationTracking medicationTracking) {
         System.out.print("Enter Doctor ID: ");
@@ -259,15 +348,126 @@ public class EmptyMenu {
     }
 
     private static void removeADoctor(Scanner scanner, MedicationTracking medicationTracking) {
-
+        if (medicationTracking.getDoctors().isEmpty()) {
+            System.out.println("No doctors available to remove.");
+            return;
+        }
+    
+        System.out.println("\n===== Doctor List =====");
+        for (Doctor doctor : medicationTracking.getDoctors()) {
+            System.out.println("ID: " + doctor.getId() + " | Name: " + doctor.getFullName());
+        }
+    
+        System.out.print("\nEnter the ID of the doctor to remove: ");
+        int doctorId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Doctor doctorToRemove = null;
+        for (Doctor doctor : medicationTracking.getDoctors()) {
+            if (doctor.getId() == doctorId) {
+                doctorToRemove = doctor;
+                break;
+            }
+        }
+    
+        if (doctorToRemove != null) {
+            medicationTracking.deleteDoctor(doctorToRemove);
+            System.out.println("Doctor " + doctorToRemove.getFullName() + " has been removed successfully.");
+        } else {
+            System.out.println("No doctor found.");
+        }
     }
-
+    
     private static void editADoctor(Scanner scanner, MedicationTracking medicationTracking) {
-        
+        if (medicationTracking.getDoctors().isEmpty()) {
+            System.out.println("No doctors available to edit.");
+            return;
+        }
+    
+        System.out.println("\n===== Doctor List =====");
+        for (Doctor doctor : medicationTracking.getDoctors()) {
+            System.out.println("ID: " + doctor.getId() + " | Name: " + doctor.getFullName());
+        }
+    
+        System.out.print("\nEnter the ID of the doctor to edit: ");
+        int doctorId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Doctor doctorToEdit = null;
+        for (Doctor doctor : medicationTracking.getDoctors()) {
+            if (doctor.getId() == doctorId) {
+                doctorToEdit = doctor;
+                break;
+            }
+        }
+    
+        if (doctorToEdit == null) {
+            System.out.println("No doctor found.");
+            return;
+        }
+    
+        System.out.println("Editing doctor: " + doctorToEdit.getFullName());
+    
+        System.out.print("Enter new First Name (leave blank to keep [" + doctorToEdit.getFirstName() + "]): ");
+        String firstName = scanner.nextLine();
+        if (!firstName.isEmpty()) doctorToEdit.setFirstName(firstName);
+    
+        System.out.print("Enter new Last Name (leave blank to keep [" + doctorToEdit.getLastName() + "]): ");
+        String lastName = scanner.nextLine();
+        if (!lastName.isEmpty()) doctorToEdit.setLastName(lastName);
+    
+        System.out.print("Enter new Age (leave blank to keep [" + doctorToEdit.getAge() + "]): ");
+        String ageInput = scanner.nextLine();
+        if (!ageInput.isEmpty()) doctorToEdit.setAge(Integer.parseInt(ageInput));
+    
+        System.out.print("Enter new Phone Number (leave blank to keep [" + doctorToEdit.getPhoneNum() + "]): ");
+        String phoneNum = scanner.nextLine();
+        if (!phoneNum.isEmpty()) doctorToEdit.setPhoneNum(phoneNum);
+    
+        System.out.print("Enter new Specialization (leave blank to keep [" + doctorToEdit.getSpecialization() + "]): ");
+        String specialization = scanner.nextLine();
+        if (!specialization.isEmpty()) doctorToEdit.setSpecialization(specialization);
+
+        System.out.print("Enter new Office Address (leave blank to keep [" + doctorToEdit.getOfficeAddress() + "]): ");
+        String officeAddress = scanner.nextLine();
+        if (!officeAddress.isEmpty()) doctorToEdit.setOfficeAddress(officeAddress);
+
+        System.out.print("Enter new Email (leave blank to keep [" + doctorToEdit.getEmail() + "]): ");
+        String email = scanner.nextLine();
+        if (!email.isEmpty()) doctorToEdit.setEmail(email);
+    
+        System.out.println("Doctor details updated successfully!");
     }
 
     private static void searchADoctor(Scanner scanner, MedicationTracking medicationTracking) {
-        
+        if (medicationTracking.getDoctors().isEmpty()) {
+            System.out.println("No doctors available to search.");
+            return;
+        }
+    
+        System.out.println("\n===== Doctor List =====");
+        for (Doctor doctor : medicationTracking.getDoctors()) {
+            System.out.println("ID: " + doctor.getId() + " | Name: " + doctor.getFullName());
+        }
+    
+        System.out.print("\nEnter the ID of the doctor to view details: ");
+        int doctorId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Doctor foundDoctor = null;
+        for (Doctor doctor : medicationTracking.getDoctors()) {
+            if (doctor.getId() == doctorId) {
+                foundDoctor = doctor;
+                break;
+            }
+        }
+    
+        if (foundDoctor != null) {
+            System.out.println("\n===== Doctor Details =====");
+            System.out.println(foundDoctor.toString());
+        } else {
+            System.out.println("No doctor found.");
+        }
     }
 
     // Add, Remove, Edit and Search Patient
@@ -365,7 +565,7 @@ public class EmptyMenu {
             medicationTracking.deletePatient(patientToRemove);
             System.out.println("Patient " + patientToRemove.getFullName() + " has been removed successfully.");
         } else {
-            System.out.println("No patient found with ID: " + patientId);
+            System.out.println("No patient found.");
         }
     }
     
@@ -396,7 +596,7 @@ public class EmptyMenu {
         }
 
         if (patientToEdit == null) {
-            System.out.println("No patient found with ID: " + patientId);
+            System.out.println("No patient found.");
             return;
         }
 
@@ -461,7 +661,7 @@ public class EmptyMenu {
         System.out.print("\nEnter the ID of the patient to view details: ");
         int patientId = scanner.nextInt();
         scanner.nextLine();
-        
+
         Patient foundPatient = null;
         for (Patient patient : medicationTracking.getPatients()) {
             if (patient.getId() == patientId) {
@@ -475,8 +675,7 @@ public class EmptyMenu {
             System.out.println("\n===== Patient Details =====");
             System.out.println(foundPatient.toString());
         } else {
-            System.out.println("No patient found with ID: " + patientId);
+            System.out.println("No patient found.");
         }
     }
-    
 }

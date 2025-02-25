@@ -67,13 +67,22 @@ public class MedicationTracking {
 
     public Medication findMedicationByName(String name) {
         for (Medication medication : medications) {
-            if (medication.getName().equalsIgnoreCase(name)) {
+            if (medication.getName().equalsIgnoreCase(name.trim())) {
                 return medication;
             }
         }
         return null;
     }
 
+    public Medication findMedicationById(int id) {
+        for (Medication medication : medications) {
+            if (medication.getId() == id) {
+                return medication;
+            }
+        }
+        return null;
+    }
+    
     // Method to edit details for a Doctor
     public void editDoctor(
             String firstName, String lastName, int age, String phoneNum,
@@ -162,9 +171,17 @@ public class MedicationTracking {
         prescriptions.forEach(System.out::println);
     }
 
-    // Getter method to retrieve the patient list
+    // Getter method to retrieve the patient, doctor and medication list
     public ArrayList<Patient> getPatients() {
         return patients;
+    }
+
+    public ArrayList<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public ArrayList<Medication> getMedications() {
+        return medications;
     }
 
     // Displays all Patients

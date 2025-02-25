@@ -76,11 +76,12 @@ public class Medication {
     }
 
     // Display medication details
-    public void displayMedicationInfo() {
-        System.out.println("Medication ID: " + id);
-        System.out.println("Name: " + name);
-        System.out.println("Dose: " + dose);
-        System.out.println("Quantity in Stock: " + quantityInStock);
-        System.out.println("Expiry Date: " + expiryDate + (isExpired() ? " (Expired)" : " (Valid)"));
+    @Override
+    public String toString() {
+        return "Medication [ID: " + id +
+                ", Name: " + name +
+                ", Dosage: " + dose +
+                ", Quantity in Stock: " + quantityInStock +
+                ", Expiry Date: " + expiryDate + (isExpired() ? " (Expired)" : " (Valid)");
     }
 }
