@@ -32,6 +32,7 @@ public class EmptyMenu {
             System.out.println("8: Restock the drugs in the pharmacy");
             System.out.println("9: print all scripts for specific patient");
             System.out.println("10: Exit");
+            System.out.println("11: Print all patients");
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
@@ -65,6 +66,9 @@ public class EmptyMenu {
                     exit = true;
                     System.out.println("Exiting The System! Good Bye!");
                     break;
+                case 11:
+                    medicationTracking.displayAllPatients();
+                    break;
                 default:
                     System.out.println("Invalid option");
             }
@@ -93,7 +97,6 @@ public class EmptyMenu {
     }
 
     private static void printPharmacyReport(MedicationTracking system) {
-
     }
 
     private static void addNewMedicationToPharmacy(Scanner scanner, MedicationTracking medicationTracking) {
