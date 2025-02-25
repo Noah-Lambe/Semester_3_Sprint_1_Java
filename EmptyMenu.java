@@ -12,6 +12,7 @@ import java.util.Date;
 import main.Doctor;
 import main.Medication;
 import main.Patient;
+import main.Prescription;
 
 public class EmptyMenu {
     public static void main(String[] args) {
@@ -89,7 +90,39 @@ public class EmptyMenu {
     }
 
     private static void processANewScript(Scanner scanner, MedicationTracking system) {
+        System.out.print("Enter Patient's Name: ");
+        String patientName = scanner.nextLine();
 
+        System.out.print("Enter Doctor's Name: ");
+        String doctorName = scanner.nextLine();
+
+        System.out.print("Enter Medication Name: ");
+        String medicationName = scanner.nextLine();
+
+        Doctor doctor = system.findDoctorByName(doctorName.split(" ")[0], doctorName.split(" ")[1]);
+        Patient patient = system.findPatientByName(patientName.split(" ")[0], patientName.split(" ")[1]);
+        Medication medication = system.findMedicationByName(medicationName);
+
+        // Validate if all objects exist
+        if (doctor == null) {
+            System.out.println("Error: Doctor " + doctorName + " not found.");
+            return;
+        }
+        if (patient == null) {
+            System.out.println("Error: Patient " + patientName + " not found.");
+            return;
+        }
+        if (medication == null) {
+            System.out.println("Error: Medication " + medicationName + " not found.");
+            return;
+        }
+
+        // Create a Prescription object with the correct parameters
+        Prescription newPrescription = new Prescription(doctor, patient, medication);
+
+        // Add the prescription to the system
+        system.addPrescription(newPrescription);
+        System.out.println("\nPrescription processed successfully for " + patientName);
     }
 
     private static void checkExpiredMeds(MedicationTracking system) {

@@ -11,6 +11,7 @@ public class Prescription {
     private Medication medication;
     private LocalDate prescriptionExpiry;
 
+    // Constructor
     public Prescription(Doctor doctor, Patient patient, Medication medication) {
         this.prescriptionID = counter++;
         this.doctor = doctor;
@@ -19,6 +20,7 @@ public class Prescription {
         this.prescriptionExpiry = LocalDate.now().plusYears(1);
     }
 
+    // Getters
     public int getPrescriptionID() {
         return prescriptionID;
     }
@@ -39,6 +41,7 @@ public class Prescription {
         return prescriptionExpiry;
     }
 
+    // Setters
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
@@ -55,6 +58,7 @@ public class Prescription {
         this.prescriptionExpiry = prescriptionExpiry;
     }
 
+    // Check if the prescription is expired
     public boolean isExpired() {
         return LocalDate.now().isAfter(prescriptionExpiry);
     }
@@ -62,11 +66,12 @@ public class Prescription {
     @Override
     public String toString() {
         return "Prescription{" +
-                "id='" + getPrescriptionID() + '\'' +
-                ", doctor='" + getDoctor() + '\'' +
-                ", patient='" + getPatient() + '\'' +
-                ", medication='" + getMedication() + '\'' +
-                ", prescriptionExpiry=" + getPrescriptionExpiry() +
+                "ID=" + prescriptionID +
+                ", Doctor='" + doctor.getFullName() + '\'' +
+                ", Patient='" + patient.getFullName() + '\'' +
+                ", Medication='" + medication.getName() + '\'' +
+                ", Expiry Date=" + prescriptionExpiry +
+                (isExpired() ? " (Expired)" : " (Valid)") +
                 '}';
     }
 }

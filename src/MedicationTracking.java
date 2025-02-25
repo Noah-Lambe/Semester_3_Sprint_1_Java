@@ -144,6 +144,12 @@ public class MedicationTracking {
         }
     }
 
+    // Method to accept a prescription
+    public void addPrescription(Prescription prescription) {
+        prescriptions.add(prescription);
+        System.out.println("Prescription added successfully for " + prescription.getPatient().getFullName());
+    }
+
     public void printSystemReport() {
         System.out.println("\n===== SYSTEM REPORT =====");
         System.out.println("Doctors:");
