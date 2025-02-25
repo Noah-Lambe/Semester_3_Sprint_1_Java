@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Date;
+
 public class Patient extends Person {
 
     String mcpNum;
@@ -12,27 +14,27 @@ public class Patient extends Person {
     String allergies;
     String address;
     String nextOfKin;
-    String lastPresDate;
+    Date lastPresDate;
 
     // Constructor
-    public Patient(int id, 
-                   String firstName, 
-                   String lastName, 
-                   int age, 
-                   String phoneNum, 
-                   String mcpNum, 
-                   char gender, 
-                   String emergContact, 
-                   String[] currentMeds, 
-                   String[] medHistory, 
-                   String bloodType, 
-                   String insurance, 
-                   String allergies, 
-                   String address, 
-                   String nextOfKin, 
-                   String lastPresDate) {
+    public Patient(int id,
+            String firstName,
+            String lastName,
+            int age,
+            String phoneNum,
+            String mcpNum,
+            char gender,
+            String emergContact,
+            String[] currentMeds,
+            String[] medHistory,
+            String bloodType,
+            String insurance,
+            String allergies,
+            String address,
+            String nextOfKin,
+            Date lastPresDate) {
 
-        super(id, firstName, lastName, age, phoneNum); 
+        super(id, firstName, lastName, age, phoneNum);
         this.mcpNum = mcpNum;
         this.gender = gender;
         this.emergContact = emergContact;
@@ -112,7 +114,7 @@ public class Patient extends Person {
         return nextOfKin;
     }
 
-    public String getLastPresDate() {
+    public Date getLastPresDate() {
         return lastPresDate;
     }
 
@@ -183,7 +185,7 @@ public class Patient extends Person {
         this.nextOfKin = nextOfKin;
     }
 
-    public void setLastPresDate(String lastPresDate) {
+    public void setLastPresDate(Date lastPresDate) {
         this.lastPresDate = lastPresDate;
     }
 
@@ -191,20 +193,20 @@ public class Patient extends Person {
 
     @Override
     public String toString() {
-    return "Patient [ID: " + id + 
-           ", Name: " + firstName + " " + lastName + 
-           ", Age: " + age + 
-           ", Phone Number: " + phoneNum + 
-           ", MCP Number: " + mcpNum + 
-           ", Gender: " + (gender == 'M' ? "Male" : gender == 'F' ? "Female" : "Other") + 
-           ", Emergency Contact: " + emergContact + 
-           ", Blood Type: " + bloodType + 
-           ", Insurance: " + insurance + 
-           ", Allergies: " + allergies + 
-           ", Address: " + address + 
-           ", Next of Kin: " + nextOfKin + 
-           ", Last Prescription Date: " + lastPresDate + 
-           ", Current Medications: " + (currentMeds.length > 0 ? String.join(", ", currentMeds) : "None") + 
-           ", Medical History: " + (medHistory.length > 0 ? String.join(", ", medHistory) : "None") + "]";
+        return "Patient [ID: " + id +
+                ", Name: " + firstName + " " + lastName +
+                ", Age: " + age +
+                ", Phone Number: " + phoneNum +
+                ", MCP Number: " + mcpNum +
+                ", Gender: " + (gender == 'M' ? "Male" : gender == 'F' ? "Female" : "Other") +
+                ", Emergency Contact: " + emergContact +
+                ", Blood Type: " + bloodType +
+                ", Insurance: " + insurance +
+                ", Allergies: " + allergies +
+                ", Address: " + address +
+                ", Next of Kin: " + nextOfKin +
+                ", Last Prescription Date: " + lastPresDate +
+                ", Current Medications: " + (currentMeds.length > 0 ? String.join(", ", currentMeds) : "None") +
+                ", Medical History: " + (medHistory.length > 0 ? String.join(", ", medHistory) : "None") + "]";
     }
 }
