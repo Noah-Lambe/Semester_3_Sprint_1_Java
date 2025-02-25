@@ -89,7 +89,7 @@ public class EmptyMenu {
 
     }
 
-    private static void processANewScript(Scanner scanner, MedicationTracking system) {
+    private static void processANewScript(Scanner scanner, MedicationTracking medicationTracking) {
         System.out.print("Enter Patient's Name: ");
         String patientName = scanner.nextLine();
 
@@ -99,9 +99,9 @@ public class EmptyMenu {
         System.out.print("Enter Medication Name: ");
         String medicationName = scanner.nextLine();
 
-        Doctor doctor = system.findDoctorByName(doctorName.split(" ")[0], doctorName.split(" ")[1]);
-        Patient patient = system.findPatientByName(patientName.split(" ")[0], patientName.split(" ")[1]);
-        Medication medication = system.findMedicationByName(medicationName);
+        Doctor doctor = medicationTracking.findDoctorByName(doctorName.split(" ")[0], doctorName.split(" ")[1]);
+        Patient patient = medicationTracking.findPatientByName(patientName.split(" ")[0], patientName.split(" ")[1]);
+        Medication medication = medicationTracking.findMedicationByName(medicationName);
 
         // Validate if all objects exist
         if (doctor == null) {
@@ -121,7 +121,7 @@ public class EmptyMenu {
         Prescription newPrescription = new Prescription(doctor, patient, medication);
 
         // Add the prescription to the system
-        system.addPrescription(newPrescription);
+        medicationTracking.addPrescription(newPrescription);
         System.out.println("\nPrescription processed successfully for " + patientName);
     }
 
