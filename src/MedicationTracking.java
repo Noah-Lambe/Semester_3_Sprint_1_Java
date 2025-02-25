@@ -162,6 +162,12 @@ public class MedicationTracking {
         prescriptions.forEach(System.out::println);
     }
 
+    // Getter method to retrieve the patient list
+    public ArrayList<Patient> getPatients() {
+        return patients;
+    }
+
+    // Displays all Patients
     public void displayAllPatients() {
         if (patients.isEmpty()) {
             System.out.println("No patients in the system.");

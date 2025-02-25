@@ -1,10 +1,7 @@
-/*
-
+/* 
 This is an example menu that is set up to show you a way of structuring your project.
 this doesnt have all requirements in it please refer to the sprint doc to view all requirements
  */
-
-// package MedicationTracking;
 
 import java.util.Scanner;
 import java.util.Date;
@@ -125,7 +122,7 @@ public class EmptyMenu {
 
     // Report 3
     private static void allPrescriptions(Scanner scanner, MedicationTracking system) {
-        // Combined together in report 3
+    // Combined together in report 3
     // private static void printAllScriptsForPatientByName(Scanner scanner, MedicationTracking system) {
 
     // }
@@ -338,14 +335,148 @@ public class EmptyMenu {
     }
 
     private static void removeAPatient(Scanner scanner, MedicationTracking medicationTracking) {
+        // Shows list of patients
+        if (medicationTracking.getPatients().isEmpty()) {
+            System.out.println("No patients available to remove.");
+            return;
+        }
+
+        System.out.println("\n===== Patient List =====");
+        for (Patient patient : medicationTracking.getPatients()) {
+            System.out.println("ID: " + patient.getId() + " | Name: " + patient.getFullName());
+        }
+
+        // Input the patient id to remove
+        System.out.print("\nEnter the ID of the patient to remove: ");
+        int patientId = scanner.nextInt();
+        scanner.nextLine();
+
+        // Search for the patient to remove
+        Patient patientToRemove = null;
+        for (Patient patient : medicationTracking.getPatients()) {
+            if (patient.getId() == patientId) {
+                patientToRemove = patient;
+                break;
+            }
+        }
         
+        // Removes patient
+        if (patientToRemove != null) {
+            medicationTracking.deletePatient(patientToRemove);
+            System.out.println("Patient " + patientToRemove.getFullName() + " has been removed successfully.");
+        } else {
+            System.out.println("No patient found with ID: " + patientId);
+        }
     }
     
     private static void editAPatient(Scanner scanner, MedicationTracking medicationTracking) {
-        
+        // Shows list of patients
+        if (medicationTracking.getPatients().isEmpty()) {
+            System.out.println("No patients available to edit.");
+            return;
+        }
+
+        System.out.println("\n===== Patient List =====");
+        for (Patient patient : medicationTracking.getPatients()) {
+            System.out.println("ID: " + patient.getId() + " | Name: " + patient.getFullName());
+        }
+
+        // Input the patient id to edit
+        System.out.print("\nEnter the ID of the patient to edit: ");
+        int patientId = scanner.nextInt();
+        scanner.nextLine();
+
+        // Search for the patient to edit
+        Patient patientToEdit = null;
+        for (Patient patient : medicationTracking.getPatients()) {
+            if (patient.getId() == patientId) {
+                patientToEdit = patient;
+                break;
+            }
+        }
+
+        if (patientToEdit == null) {
+            System.out.println("No patient found with ID: " + patientId);
+            return;
+        }
+
+        // Editing the patients details
+        System.out.println("Editing patient: " + patientToEdit.getFullName());
+        System.out.print("Enter new First Name (leave blank to keep current [" + patientToEdit.getFirstName() + "]): ");
+        String firstName = scanner.nextLine();
+        if (!firstName.isEmpty()) patientToEdit.setFirstName(firstName);
+
+        System.out.print("Enter new Last Name (leave blank to keep current [" + patientToEdit.getLastName() + "]): ");
+        String lastName = scanner.nextLine();
+        if (!lastName.isEmpty()) patientToEdit.setLastName(lastName);
+
+        System.out.print("Enter new Age (leave blank to keep current [" + patientToEdit.getAge() + "]): ");
+        String ageInput = scanner.nextLine();
+        if (!ageInput.isEmpty()) patientToEdit.setAge(Integer.parseInt(ageInput));
+
+        System.out.print("Enter new Phone Number (leave blank to keep current [" + patientToEdit.getPhoneNum() + "]): ");
+        String phoneNum = scanner.nextLine();
+        if (!phoneNum.isEmpty()) patientToEdit.setPhoneNum(phoneNum);
+
+        System.out.print("Enter new MCP Number (leave blank to keep current [" + patientToEdit.getMcpNum() + "]): ");
+        String mcpNum = scanner.nextLine();
+        if (!mcpNum.isEmpty()) patientToEdit.setMcpNum(mcpNum);
+
+        System.out.print("Enter new Gender (leave blank to keep current [" + patientToEdit.getGender() + "]): ");
+        String gender = scanner.nextLine();
+        if (!gender.isEmpty()) patientToEdit.setGender(gender.charAt(0));
+
+        System.out.print("Enter new Emergency Contact (leave blank to keep current [" + patientToEdit.getEmergContact() + "]): ");
+        String emergContact = scanner.nextLine();
+        if (!emergContact.isEmpty()) patientToEdit.setEmergContact(emergContact);
+
+        System.out.print("Enter new Insurance Provider (leave blank to keep current [" + patientToEdit.getInsurance() + "]): ");
+        String insurance = scanner.nextLine();
+        if (!insurance.isEmpty()) patientToEdit.setInsurance(insurance);
+
+        System.out.print("Enter new Address (leave blank to keep current [" + patientToEdit.getAddress() + "]): ");
+        String address = scanner.nextLine();
+        if (!address.isEmpty()) patientToEdit.setAddress(address);
+
+        System.out.print("Enter new Next of Kin (leave blank to keep current [" + patientToEdit.getNextOfKin() + "]): ");
+        String nextOfKin = scanner.nextLine();
+        if (!nextOfKin.isEmpty()) patientToEdit.setNextOfKin(nextOfKin);
+
+        System.out.println("Patient details updated successfully!");
     }
    
     private static void searchForAPatient(Scanner scanner, MedicationTracking medicationTracking) {
+        // Shows list of patients
+        if (medicationTracking.getPatients().isEmpty()) {
+            System.out.println("No patients available to search.");
+            return;
+        }
+    
+        System.out.println("\n===== Patient List =====");
+        for (Patient patient : medicationTracking.getPatients()) {
+            System.out.println("ID: " + patient.getId() + " | Name: " + patient.getFullName());
+        }
+    
+        // Input the patient id to search
+        System.out.print("\nEnter the ID of the patient to view details: ");
+        int patientId = scanner.nextInt();
+        scanner.nextLine();
         
+        Patient foundPatient = null;
+        for (Patient patient : medicationTracking.getPatients()) {
+            if (patient.getId() == patientId) {
+                foundPatient = patient;
+                break;
+            }
+        }
+    
+        // Display patient details
+        if (foundPatient != null) {
+            System.out.println("\n===== Patient Details =====");
+            System.out.println(foundPatient.toString());
+        } else {
+            System.out.println("No patient found with ID: " + patientId);
+        }
     }
+    
 }
