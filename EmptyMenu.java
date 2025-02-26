@@ -142,10 +142,61 @@ public class EmptyMenu {
 
     //Add Patients To a Doctor
     private static void addPatientToADoctor(Scanner scanner, MedicationTracking system) {
+        // Check if doctor or patients list is empty
+        if (system.getDoctors().isEmpty() || system.getPatients().isEmpty()) {
+            System.out.println("No Doctors or Patients available.");
+            return;
+        }
+        
+        System.out.println("\n===== List of Doctors =====");
+        for (Doctor doctor : system.getDoctors()) {
+            System.out.println("ID: " + doctor.getId() + " | Name: " + doctor.getFullName());
+        }
 
-    }
-
+        System.out.println("\n===== List of Patients =====");
+        for (Patient patient : system.getPatients()) {
+            System.out.println("ID: " + patient.getId() + " | Name: " + patient.getFullName());
+        }
     
+        // Select a doctor by ID
+        System.out.print("\nEnter the ID of the doctor: ");
+        int doctorId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Doctor selectedDoctor = null;
+        for (Doctor doctor : system.getDoctors()) {
+            if (doctor.getId() == doctorId) {
+                selectedDoctor = doctor;
+                break;
+            }
+        }
+    
+        if (selectedDoctor == null) {
+            System.out.println("Invalid doctor ID.");
+            return;
+        }
+    
+        // Select a patient by ID
+        System.out.print("\nEnter the ID of the patient: ");
+        int patientId = scanner.nextInt();
+        scanner.nextLine();
+    
+        Patient selectedPatient = null;
+        for (Patient patient : system.getPatients()) {
+            if (patient.getId() == patientId) {
+                selectedPatient = patient;
+                break;
+            }
+        }
+    
+        if (selectedPatient == null) {
+            System.out.println("Invalid patient ID.");
+            return;
+        }
+    
+        // Assign patient to doctor
+        selectedDoctor.addPatient(selectedPatient);
+    }
 
     // Accept A New Perscription
     private static void processANewScript(Scanner scanner, MedicationTracking system) {

@@ -1,11 +1,14 @@
 package main;
 
+import java.util.ArrayList;
+
 public class Doctor extends Person {
 
     private String specialization;
     private String officeAddress;
     private String licenseNum;
     private String email;
+    private ArrayList<Patient> assignedPatients;
 
     // Constructor
     public Doctor(int id,
@@ -23,6 +26,7 @@ public class Doctor extends Person {
         this.officeAddress = officeAddress;
         this.licenseNum = licenseNum;
         this.email = email;
+        this.assignedPatients = new ArrayList<>();
     }
 
     // Getter methods
@@ -124,8 +128,17 @@ public class Doctor extends Person {
         return licenseNum.matches("^[A-Z]{3}\\d{3}$");
     }
 
-    // To String method
+    // Method to add a patient to the patients list
+    public void addPatient(Patient patient) {
+        assignedPatients.add(patient);
+        System.out.println("Patient " + patient.getFullName() + " assigned to Doctor " + getFullName());
+    }
 
+    public ArrayList<Patient> getAssignedPatients() {
+        return assignedPatients;
+    }
+
+    // To String method
     @Override
     public String toString() {
         return "Doctor [Full Name: " + firstName + " " + lastName +
