@@ -1,32 +1,28 @@
-package main;
-import java.util.ArrayList;
+package classes;
 
-public class Doctor extends Person {
-
+public class Doctor extends Person{
+        
     private String specialization;
     private String officeAddress;
     private String licenseNum;
     private String email;
 
-    private ArrayList<Patient> assignedPatients;
-
     // Constructor
-    public Doctor(int id,
-            String firstName,
-            String lastName,
-            int age,
-            String phoneNum,
-            String specialization,
-            String officeAddress,
-            String licenseNum,
-            String email) {
-
+    public Doctor(int id, 
+                  String firstName, 
+                  String lastName, 
+                  int age, 
+                  String phoneNum, 
+                  String specialization, 
+                  String officeAddress, 
+                  String licenseNum, 
+                  String email) {
+        
         super(id, firstName, lastName, age, phoneNum);
         this.specialization = specialization;
         this.officeAddress = officeAddress;
         this.licenseNum = licenseNum;
         this.email = email;
-        this.assignedPatients = new ArrayList<>();
     }
 
     // Getter methods
@@ -103,7 +99,7 @@ public class Doctor extends Person {
     }
 
     public void setOfficeAddress(String officeAddress) {
-        this.officeAddress = officeAddress;
+        this.officeAddress = officeAddress; 
     }
 
     public void setLicenseNum(String licenseNum) {
@@ -119,34 +115,25 @@ public class Doctor extends Person {
     public boolean isValidPhoneNum() {
         return phoneNum.matches("\\d{3}-\\d{3}-\\d{4}"); // Used ChatGPT to help with regex statements
     }
-
+    
     public boolean isValidEmail() {
         return email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     }
-
+    
     public boolean isValidLicenseNum() {
         return licenseNum.matches("^[A-Z]{3}\\d{3}$");
     }
-  
-    // Method to add a patient to the patients list
-    public void addPatient(Patient patient) {
-        assignedPatients.add(patient);
-        System.out.println("Patient " + patient.getFullName() + " assigned to Doctor " + getFullName());
-    }
-
-    public ArrayList<Patient> getAssignedPatients() {
-        return assignedPatients;
-    }
 
     // To String method
+
     @Override
     public String toString() {
-        return "Doctor [Full Name: " + firstName + " " + lastName +
-                ", Age: " + age +
-                ", Phone Number: " + phoneNum +
-                ", Specialization: " + specialization +
-                ", Office Address: " + officeAddress +
-                ", License Number: " + licenseNum +
-                ", Email: " + email + "]";
+        return "Doctor [Full Name: " + firstName + " " + lastName + 
+           ", Age: " + age + 
+           ", Phone Number: " + phoneNum + 
+           ", Specialization: " + specialization + 
+           ", Office Address: " + officeAddress + 
+           ", License Number: " + licenseNum + 
+           ", Email: " + email + "]";
     }
 }

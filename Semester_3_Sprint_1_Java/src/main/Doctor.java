@@ -1,4 +1,5 @@
 package main;
+
 import java.util.ArrayList;
 
 public class Doctor extends Person {
@@ -7,7 +8,6 @@ public class Doctor extends Person {
     private String officeAddress;
     private String licenseNum;
     private String email;
-
     private ArrayList<Patient> assignedPatients;
 
     // Constructor
@@ -127,7 +127,7 @@ public class Doctor extends Person {
     public boolean isValidLicenseNum() {
         return licenseNum.matches("^[A-Z]{3}\\d{3}$");
     }
-  
+
     // Method to add a patient to the patients list
     public void addPatient(Patient patient) {
         assignedPatients.add(patient);

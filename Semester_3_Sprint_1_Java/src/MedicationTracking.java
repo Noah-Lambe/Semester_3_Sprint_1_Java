@@ -184,6 +184,10 @@ public class MedicationTracking {
         return medications;
     }
 
+    public ArrayList<Prescription> getPrescriptions() {
+        return prescriptions;
+    }
+
     // Displays all Patients
     public void displayAllPatients() {
         if (patients.isEmpty()) {
@@ -192,6 +196,42 @@ public class MedicationTracking {
             System.out.println("\n===== Patient List =====");
             for (Patient patient : patients) {
                 System.out.println(patient);
+            }
+        }
+    }
+
+    // Displays all Doctors
+    public void displayAllDoctors() {
+        if (doctors.isEmpty()) {
+            System.out.println("No doctors in the system.");
+        } else {
+            System.out.println("\n===== Doctor List =====");
+            for (Doctor doctor : doctors) {
+                System.out.println(doctor);
+            }
+        }
+    }
+
+    // Displays all Medications
+    public void displayAllMedications() {
+        if (medications.isEmpty()) {
+            System.out.println("No medications in the pharmacy.");
+        } else {
+            System.out.println("\n===== Medication List =====");
+            for (Medication medication : medications) {
+                System.out.println(medication);
+            }
+        }
+    }
+
+    // Displays all Prescriptions
+    public void displayAllPrescriptions() {
+        if (prescriptions.isEmpty()) {
+            System.out.println("No prescriptions in the system.");
+        } else {
+            System.out.println("\n===== Prescription List =====");
+            for (Prescription prescription : prescriptions) {
+                System.out.println(prescription);
             }
         }
     }
