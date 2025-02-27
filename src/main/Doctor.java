@@ -10,7 +10,6 @@ public class Doctor extends Person {
 
     private ArrayList<Patient> assignedPatients;
 
-
     // Constructor
     public Doctor(int id,
             String firstName,
@@ -28,7 +27,6 @@ public class Doctor extends Person {
         this.licenseNum = licenseNum;
         this.email = email;
         this.assignedPatients = new ArrayList<>();
-
     }
 
     // Getter methods
@@ -129,7 +127,7 @@ public class Doctor extends Person {
     public boolean isValidLicenseNum() {
         return licenseNum.matches("^[A-Z]{3}\\d{3}$");
     }
-
+  
     // Method to add a patient to the patients list
     public void addPatient(Patient patient) {
         assignedPatients.add(patient);
