@@ -3,6 +3,7 @@ This is an example menu that is set up to show you a way of structuring your pro
 this doesnt have all requirements in it please refer to the sprint doc to view all requirements
  */
 
+// package MedicationTracking;
 import java.util.Scanner;
 import java.util.Date;
 
@@ -40,6 +41,7 @@ public class EmptyMenu {
             System.out.println("18: Restock All Drugs In The Pharmacy");
             System.out.println("0: Exit");
             System.out.println("19: Print all patients");
+
             int option = scanner.nextInt();
             switch (option) {
                 case 1:
@@ -198,8 +200,8 @@ public class EmptyMenu {
         selectedDoctor.addPatient(selectedPatient);
     }
 
-    // Accept A New Perscription
-    private static void processANewScript(Scanner scanner, MedicationTracking system) {
+
+    private static void processANewScript(Scanner scanner, MedicationTracking medicationTracking) {
         System.out.print("Enter Patient's Name: ");
         String patientName = scanner.nextLine();
 
@@ -209,10 +211,10 @@ public class EmptyMenu {
         System.out.print("Enter Medication Name: ");
         String medicationName = scanner.nextLine();
 
-        Doctor doctor = system.findDoctorByName(doctorName.split(" ")[0], doctorName.split(" ")[1]);
-        Patient patient = system.findPatientByName(patientName.split(" ")[0], patientName.split(" ")[1]);
-        Medication medication = system.findMedicationByName(medicationName);
-
+        Doctor doctor = medicationTracking.findDoctorByName(doctorName.split(" ")[0], doctorName.split(" ")[1]);
+        Patient patient = medicationTracking.findPatientByName(patientName.split(" ")[0], patientName.split(" ")[1]);
+        Medication medication = medicationTracking.findMedicationByName(medicationName);
+      
         // Validate if all objects exist
         if (doctor == null) {
             System.out.println("Error: Doctor " + doctorName + " not found.");
@@ -231,7 +233,7 @@ public class EmptyMenu {
         Prescription newPrescription = new Prescription(doctor, patient, medication);
 
         // Add the prescription to the system
-        system.addPrescription(newPrescription);
+        medicationTracking.addPrescription(newPrescription);
         System.out.println("\nPrescription processed successfully for " + patientName);
     }
 
@@ -257,7 +259,7 @@ public class EmptyMenu {
         System.out.println("\nMedication added successfully!");
         newMedication.toString();
     }
-
+  
     private static void removeMedicationToPharmacy(Scanner scanner, MedicationTracking medicationTracking) {
         if (medicationTracking.getMedications().isEmpty()) {
             System.out.println("No medications available to remove.");
@@ -579,7 +581,6 @@ public class EmptyMenu {
         Patient newPatient = new Patient(id, firstName, lastName, age, phoneNum, mcpNum,
                 gender, emergContact, currentMeds, medHistory, bloodType, insurance,
                 allergies, address, nextOfKin, lastPresDate);
-
         // Add patient to the system
         medicationTracking.addPatient(newPatient);
         System.out.println("Patient added successfully!");
