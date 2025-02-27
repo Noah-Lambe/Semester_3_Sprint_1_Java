@@ -1,1 +1,1 @@
-# Semester_3_Sprint_1_Java
+# Please see documents folder for all needed information about the application.
