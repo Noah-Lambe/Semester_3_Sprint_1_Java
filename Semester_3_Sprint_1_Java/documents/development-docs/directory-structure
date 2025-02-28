@@ -1,12 +1,32 @@
 Root Folder
 │
 ├── docs
-│   ├── deployment docs
-│   ├── development docs
+│   ├── development-docs
+│   │   ├── compiler-dependencies.md
+│   │   ├── development-standards.md
+│   │   ├── directory-structure.txt
+│   │   └── theoretical-database.md
+│   │
 │   └── user-docs
+│       ├── class-diagram.yaml
+│       └── project-explanation.md
 │
 └── src
     ├── class
-    ├── README
+    │   ├── Doctor.java
+    │   ├── Medication.java
+    │   ├── Patient.java
+    │   ├── Person.java
+    │   └── Prescription.java
+    │
+    ├── main
+    │   ├── Doctor.java
+    │   ├── Medication.java
+    │   ├── Patient.java
+    │   ├── Person.java
+    │   ├── Prescription.java
+    │   └── MedicationTracking.class
+    │
     ├── EmptyMenu.java
-    └── Main.java
+    ├── MedicationTracking.java
+    └── README.md
