@@ -10,14 +10,13 @@ import classes.Patient;
 import classes.Prescription;
 import classes.MedicationTracking;
 
-
 public class EmptyMenu {
     public static void main(String[] args) {
         MedicationTracking medicationTracking = new MedicationTracking();
 
-//        Medication expiredMed = new Medication("ExpiredMed", "100mg", 5);
-//        expiredMed.setExpiryDate(LocalDate.of(2023, 1, 1));
-//        medicationTracking.addMedication(expiredMed);
+        // Medication expiredMed = new Medication("ExpiredMed", "100mg", 5);
+        // expiredMed.setExpiryDate(LocalDate.of(2023, 1, 1));
+        // medicationTracking.addMedication(expiredMed);
 
         boolean exit = false;
 
@@ -34,13 +33,15 @@ public class EmptyMenu {
             System.out.println("7: Edit A Doctor");
             System.out.println("8: Search A Doctor");
             System.out.println("9: Add A New Medication To The Pharmacy");
-            System.out.println("10: Remove A Medication from The Pharmacy");
-            System.out.println("11: Edit A Medication In The Pharmacy");
-            System.out.println("12: Search A Medication In The Pharmacy");
+            System.out.println("10: Remove A Medication To The Pharmacy");
+            System.out.println("11: Edit A Medication To The Pharmacy");
+            System.out.println("12: Search A Medication To The Pharmacy");
             System.out.println("13: Accept Prescription From A Doctor");
             System.out.println("14: Add Patients To A Doctor");
-            System.out.println("15: Generate Report: Print a report summarizing all data, including patients, doctors, and medications in the system");
-            System.out.println("16: Generate Report: Check to see if any drug is expired in the system. If they are generate a report of the ones that are");
+            System.out.println(
+                    "15: Generate Report: Print a report summarizing all data, including patients, doctors, and medications in the system");
+            System.out.println(
+                    "16: Generate Report: Check to see if any drug is expired in the system. If they are generate a report of the ones that are");
             System.out.println("17: Generate Report: Print a list of all prescriptions for a specific doctor");
             System.out.println("18: Restock All Drugs In The Pharmacy");
             System.out.println("0: Exit");
@@ -250,20 +251,33 @@ public class EmptyMenu {
         selectedDoctor.addPatient(selectedPatient);
     }
 
-    private static void processANewScript(Scanner scanner, MedicationTracking system) {
+    private static void processANewScript(Scanner scanner, MedicationTracking medicationTracking) {
+        // Clear the input buffer before reading lines
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
+
         System.out.print("Enter Patient's Name: ");
-        String patientName = scanner.nextLine();
-        scanner.nextLine();
+        String patientName = scanner.nextLine().trim();
 
         System.out.print("Enter Doctor's Name: ");
-        String doctorName = scanner.nextLine();
+        String doctorName = scanner.nextLine().trim();
 
         System.out.print("Enter Medication Name: ");
-        String medicationName = scanner.nextLine();
+        String medicationName = scanner.nextLine().trim();
 
-        Doctor doctor = system.findDoctorByName(doctorName.split(" ")[0], doctorName.split(" ")[1]);
-        Patient patient = system.findPatientByName(patientName.split(" ")[0], patientName.split(" ")[1]);
-        Medication medication = system.findMedicationByName(medicationName);
+        // Handle single/multi-word names correctly
+        String[] doctorNameParts = doctorName.split(" ");
+        String doctorFirstName = doctorNameParts[0];
+        String doctorLastName = doctorNameParts.length > 1 ? doctorNameParts[1] : "";
+
+        String[] patientNameParts = patientName.split(" ");
+        String patientFirstName = patientNameParts[0];
+        String patientLastName = patientNameParts.length > 1 ? patientNameParts[1] : "";
+
+        Doctor doctor = medicationTracking.findDoctorByName(doctorFirstName, doctorLastName);
+        Patient patient = medicationTracking.findPatientByName(patientFirstName, patientLastName);
+        Medication medication = medicationTracking.findMedicationByName(medicationName);
 
         if (doctor == null) {
             System.out.println("Error: Doctor " + doctorName + " not found.");
@@ -278,8 +292,9 @@ public class EmptyMenu {
             return;
         }
 
+        // Create and store prescription
         Prescription newPrescription = new Prescription(doctor, patient, medication);
-        system.addPrescription(newPrescription);
+        medicationTracking.addPrescription(newPrescription);
         System.out.println("\nPrescription processed successfully for " + patientName);
     }
 
@@ -363,15 +378,18 @@ public class EmptyMenu {
 
         System.out.print("Enter new Name (leave blank to keep [" + medToEdit.getName() + "]): ");
         String name = scanner.nextLine();
-        if (!name.isEmpty()) medToEdit.setName(name);
+        if (!name.isEmpty())
+            medToEdit.setName(name);
 
         System.out.print("Enter new Dosage (leave blank to keep [" + medToEdit.getDose() + "]): ");
         String dose = scanner.nextLine();
-        if (!dose.isEmpty()) medToEdit.setDose(dose);
+        if (!dose.isEmpty())
+            medToEdit.setDose(dose);
 
         System.out.print("Enter new Quantity (leave blank to keep [" + medToEdit.getQuantityInStock() + "]): ");
         String quantityInput = scanner.nextLine();
-        if (!quantityInput.isEmpty()) medToEdit.setQuantityInStock(Integer.parseInt(quantityInput));
+        if (!quantityInput.isEmpty())
+            medToEdit.setQuantityInStock(Integer.parseInt(quantityInput));
 
         System.out.println("Medication details updated successfully!");
     }
@@ -430,7 +448,8 @@ public class EmptyMenu {
         System.out.print("Enter Email: ");
         String email = scanner.nextLine();
 
-        Doctor newDoctor = new Doctor(id, firstName, lastName, age, phoneNum, specialization, officeAddress, licenseNum, email);
+        Doctor newDoctor = new Doctor(id, firstName, lastName, age, phoneNum, specialization, officeAddress, licenseNum,
+                email);
         medicationTracking.addDoctor(newDoctor);
         System.out.println("Doctor added successfully!");
     }
@@ -498,31 +517,38 @@ public class EmptyMenu {
 
         System.out.print("Enter new First Name (leave blank to keep [" + doctorToEdit.getFirstName() + "]): ");
         String firstName = scanner.nextLine();
-        if (!firstName.isEmpty()) doctorToEdit.setFirstName(firstName);
+        if (!firstName.isEmpty())
+            doctorToEdit.setFirstName(firstName);
 
         System.out.print("Enter new Last Name (leave blank to keep [" + doctorToEdit.getLastName() + "]): ");
         String lastName = scanner.nextLine();
-        if (!lastName.isEmpty()) doctorToEdit.setLastName(lastName);
+        if (!lastName.isEmpty())
+            doctorToEdit.setLastName(lastName);
 
         System.out.print("Enter new Age (leave blank to keep [" + doctorToEdit.getAge() + "]): ");
         String ageInput = scanner.nextLine();
-        if (!ageInput.isEmpty()) doctorToEdit.setAge(Integer.parseInt(ageInput));
+        if (!ageInput.isEmpty())
+            doctorToEdit.setAge(Integer.parseInt(ageInput));
 
         System.out.print("Enter new Phone Number (leave blank to keep [" + doctorToEdit.getPhoneNum() + "]): ");
         String phoneNum = scanner.nextLine();
-        if (!phoneNum.isEmpty()) doctorToEdit.setPhoneNum(phoneNum);
+        if (!phoneNum.isEmpty())
+            doctorToEdit.setPhoneNum(phoneNum);
 
         System.out.print("Enter new Specialization (leave blank to keep [" + doctorToEdit.getSpecialization() + "]): ");
         String specialization = scanner.nextLine();
-        if (!specialization.isEmpty()) doctorToEdit.setSpecialization(specialization);
+        if (!specialization.isEmpty())
+            doctorToEdit.setSpecialization(specialization);
 
         System.out.print("Enter new Office Address (leave blank to keep [" + doctorToEdit.getOfficeAddress() + "]): ");
         String officeAddress = scanner.nextLine();
-        if (!officeAddress.isEmpty()) doctorToEdit.setOfficeAddress(officeAddress);
+        if (!officeAddress.isEmpty())
+            doctorToEdit.setOfficeAddress(officeAddress);
 
         System.out.print("Enter new Email (leave blank to keep [" + doctorToEdit.getEmail() + "]): ");
         String email = scanner.nextLine();
-        if (!email.isEmpty()) doctorToEdit.setEmail(email);
+        if (!email.isEmpty())
+            doctorToEdit.setEmail(email);
 
         System.out.println("Doctor details updated successfully!");
     }
@@ -681,43 +707,57 @@ public class EmptyMenu {
         System.out.println("Editing patient: " + patientToEdit.getFullName());
         System.out.print("Enter new First Name (leave blank to keep current [" + patientToEdit.getFirstName() + "]): ");
         String firstName = scanner.nextLine();
-        if (!firstName.isEmpty()) patientToEdit.setFirstName(firstName);
+        if (!firstName.isEmpty())
+            patientToEdit.setFirstName(firstName);
 
         System.out.print("Enter new Last Name (leave blank to keep current [" + patientToEdit.getLastName() + "]): ");
         String lastName = scanner.nextLine();
-        if (!lastName.isEmpty()) patientToEdit.setLastName(lastName);
+        if (!lastName.isEmpty())
+            patientToEdit.setLastName(lastName);
 
         System.out.print("Enter new Age (leave blank to keep current [" + patientToEdit.getAge() + "]): ");
         String ageInput = scanner.nextLine();
-        if (!ageInput.isEmpty()) patientToEdit.setAge(Integer.parseInt(ageInput));
+        if (!ageInput.isEmpty())
+            patientToEdit.setAge(Integer.parseInt(ageInput));
 
-        System.out.print("Enter new Phone Number (leave blank to keep current [" + patientToEdit.getPhoneNum() + "]): ");
+        System.out
+                .print("Enter new Phone Number (leave blank to keep current [" + patientToEdit.getPhoneNum() + "]): ");
         String phoneNum = scanner.nextLine();
-        if (!phoneNum.isEmpty()) patientToEdit.setPhoneNum(phoneNum);
+        if (!phoneNum.isEmpty())
+            patientToEdit.setPhoneNum(phoneNum);
 
         System.out.print("Enter new MCP Number (leave blank to keep current [" + patientToEdit.getMcpNum() + "]): ");
         String mcpNum = scanner.nextLine();
-        if (!mcpNum.isEmpty()) patientToEdit.setMcpNum(mcpNum);
+        if (!mcpNum.isEmpty())
+            patientToEdit.setMcpNum(mcpNum);
 
         System.out.print("Enter new Gender (leave blank to keep current [" + patientToEdit.getGender() + "]): ");
         String gender = scanner.nextLine();
-        if (!gender.isEmpty()) patientToEdit.setGender(gender.charAt(0));
+        if (!gender.isEmpty())
+            patientToEdit.setGender(gender.charAt(0));
 
-        System.out.print("Enter new Emergency Contact (leave blank to keep current [" + patientToEdit.getEmergContact() + "]): ");
+        System.out.print("Enter new Emergency Contact (leave blank to keep current [" + patientToEdit.getEmergContact()
+                + "]): ");
         String emergContact = scanner.nextLine();
-        if (!emergContact.isEmpty()) patientToEdit.setEmergContact(emergContact);
+        if (!emergContact.isEmpty())
+            patientToEdit.setEmergContact(emergContact);
 
-        System.out.print("Enter new Insurance Provider (leave blank to keep current [" + patientToEdit.getInsurance() + "]): ");
+        System.out.print(
+                "Enter new Insurance Provider (leave blank to keep current [" + patientToEdit.getInsurance() + "]): ");
         String insurance = scanner.nextLine();
-        if (!insurance.isEmpty()) patientToEdit.setInsurance(insurance);
+        if (!insurance.isEmpty())
+            patientToEdit.setInsurance(insurance);
 
         System.out.print("Enter new Address (leave blank to keep current [" + patientToEdit.getAddress() + "]): ");
         String address = scanner.nextLine();
-        if (!address.isEmpty()) patientToEdit.setAddress(address);
+        if (!address.isEmpty())
+            patientToEdit.setAddress(address);
 
-        System.out.print("Enter new Next of Kin (leave blank to keep current [" + patientToEdit.getNextOfKin() + "]): ");
+        System.out
+                .print("Enter new Next of Kin (leave blank to keep current [" + patientToEdit.getNextOfKin() + "]): ");
         String nextOfKin = scanner.nextLine();
-        if (!nextOfKin.isEmpty()) patientToEdit.setNextOfKin(nextOfKin);
+        if (!nextOfKin.isEmpty())
+            patientToEdit.setNextOfKin(nextOfKin);
 
         System.out.println("Patient details updated successfully!");
     }
