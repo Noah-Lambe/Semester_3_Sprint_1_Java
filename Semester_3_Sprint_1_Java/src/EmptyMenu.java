@@ -34,9 +34,9 @@ public class EmptyMenu {
             System.out.println("7: Edit A Doctor");
             System.out.println("8: Search A Doctor");
             System.out.println("9: Add A New Medication To The Pharmacy");
-            System.out.println("10: Remove A Medication To The Pharmacy");
-            System.out.println("11: Edit A Medication To The Pharmacy");
-            System.out.println("12: Search A Medication To The Pharmacy");
+            System.out.println("10: Remove A Medication from The Pharmacy");
+            System.out.println("11: Edit A Medication In The Pharmacy");
+            System.out.println("12: Search A Medication In The Pharmacy");
             System.out.println("13: Accept Prescription From A Doctor");
             System.out.println("14: Add Patients To A Doctor");
             System.out.println("15: Generate Report: Print a report summarizing all data, including patients, doctors, and medications in the system");
